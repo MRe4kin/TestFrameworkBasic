@@ -2,10 +2,7 @@ package mantis.tests;
 
 import mantis.pages.MantisSite;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 public class ReportIssues extends BaseTest {
     private MantisSite mantisSite;
@@ -20,25 +17,21 @@ public class ReportIssues extends BaseTest {
 
         mantisSite.getReportIssuesPage().createIssues(); //Создание Issue
 
-        WebElement viewSubmittedIssueButton = driver.findElement(By.xpath("//td[@class='bug-id']"));
-        String idSubmittedIssue = viewSubmittedIssueButton.getText();
+        String idSubmittedIssue = mantisSite.getReportIssuesPage().getIssueId(); //Получение Id Issue при создании
 
         mantisSite.getMainPage().goToViewIssuesPage(); // Переход на страницу просмотра Issue
 
-        String summary = mantisSite.getViewIssuesPage().assertSummary(); //Получаем текст из ячейки summary
-        String id = mantisSite.getViewIssuesPage().assertId(); // Получаем ID Issue
+        String summary = mantisSite.getViewIssuesPage().assertSummary(); //Получаем summary на странице ViewIssue
+        String id = mantisSite.getViewIssuesPage().viewIssueBugId(); // Получаем ID Issue на странице ViewIssue
 
-        SoftAssertions softAssert = new SoftAssertions(); // Объявляем класс softassertions
+        SoftAssertions softAssert = new SoftAssertions();
 
-        softAssert.assertThat(summary).contains("test"); //Проверка summary
-        softAssert.assertThat(idSubmittedIssue).contains(id); //Проверка ID
-        softAssert.assertAll();
+        softAssert.assertThat(summary).contains("test"); //Создание проверка по summary
+        softAssert.assertThat(idSubmittedIssue).contains(id); //Создание проверка по Id
 
         mantisSite.getViewIssuesPage().deleteIssue(); // Удаление Issue
 
-        softAssert.assertThat(summary).doesNotContain("test"); //Проверка summary
-        softAssert.assertThat(idSubmittedIssue).doesNotContain(id); //Проверка ID
-//        softAssert.assertAll(); //Почему тест не проходит когда дописана эта строка?
-
+        softAssert.assertThat(summary).doesNotContain("test"); //Удаление проверка по summary
+        softAssert.assertThat(idSubmittedIssue).doesNotContain(id); //Удаление проверка по Id
     }
 }

@@ -25,14 +25,11 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    public String getUserName() {
-        return userName.getText();
-    }
-
     public void goToViewIssuesPage() {
         viewIssuesPageButton.click();
     }
 
-    public void goToReportIssuesPage() {reportIssuesButton.click();
+    public void goToReportIssuesPage() {
+        reportIssuesButton.click();
     }
 }

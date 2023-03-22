@@ -6,14 +6,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 public class ViewIssuesPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
-
-    @FindBy(css = "#buglist tbody tr")
-    private List<WebElement> issues;
 
     @FindBy(xpath = "//*[@id='buglist']//tr[1]/td[4]")
     private WebElement issueId;
@@ -41,7 +36,6 @@ public class ViewIssuesPage {
 
     }
 
-
     public void deleteIssue() {
         issueId.click();
         deleteIssueButton.click();
@@ -49,7 +43,7 @@ public class ViewIssuesPage {
 
     }
 
-    public String assertId() {
+    public String viewIssueBugId() {
         return idAssert.getText();
     }
 }

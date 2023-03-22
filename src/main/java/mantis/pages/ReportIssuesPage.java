@@ -24,6 +24,9 @@ public class ReportIssuesPage {
     @FindBy(xpath = "//div[@class='btn-group']/a[1]")
     private WebElement viewSubmittedIssuesButton;
 
+    @FindBy(xpath = "//td[@class='bug-id']")
+    private WebElement issueId;
+
     public ReportIssuesPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 30, 500);
@@ -35,6 +38,10 @@ public class ReportIssuesPage {
         descriptionArea.sendKeys("test");
         submitIssueButton.click();
         viewSubmittedIssuesButton.click();
+    }
+
+    public String getIssueId() {
+        return issueId.getText();
     }
 
 }
