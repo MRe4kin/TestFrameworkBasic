@@ -12,7 +12,7 @@ public class ReportIssuesPage {
 
 
     @FindBy(xpath = "//*[@id=\"summary\"]")
-    private WebElement summaaryArea;
+    private WebElement summaryArea;
 
     @FindBy(xpath = "//*[@id=\"description\"]")
     private WebElement descriptionArea;
@@ -34,7 +34,7 @@ public class ReportIssuesPage {
     }
 
     public void createIssues() {
-        summaaryArea.sendKeys("test");
+        summaryArea.sendKeys("test");
         descriptionArea.sendKeys("test");
         submitIssueButton.click();
         viewSubmittedIssuesButton.click();

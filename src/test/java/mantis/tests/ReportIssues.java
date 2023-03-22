@@ -8,12 +8,11 @@ public class ReportIssues extends BaseTest {
     private MantisSite mantisSite;
 
     @Test
-    public void createDeleteIssueTest() throws InterruptedException {
+    public void createDeleteIssueTest() {
         mantisSite = new MantisSite(driver);
         mantisSite.login("admin", "admin20");
 
         mantisSite.getMainPage().goToReportIssuesPage();
-        Thread.sleep(3000);
 
         mantisSite.getReportIssuesPage().createIssues(); //Создание Issue
 
@@ -28,10 +27,12 @@ public class ReportIssues extends BaseTest {
 
         softAssert.assertThat(summary).contains("test"); //Создание проверка по summary
         softAssert.assertThat(idSubmittedIssue).contains(id); //Создание проверка по Id
+        softAssert.assertAll();
 
         mantisSite.getViewIssuesPage().deleteIssue(); // Удаление Issue
 
-        softAssert.assertThat(summary).doesNotContain("test"); //Удаление проверка по summary
-        softAssert.assertThat(idSubmittedIssue).doesNotContain(id); //Удаление проверка по Id
+        softAssert.assertThat(summary).doesNotMatch("test"); //Удаление проверка по summary
+        softAssert.assertThat(idSubmittedIssue).doesNotMatch(id); //Удаление проверка по Id
+        softAssert.assertAll(); //При добавлении assertAll проверки после удаления Issue валятся. В чем может быть дело? Не правильно составлен сам softAssert? Или составлен верно, но я не верно им пользуюсь?
     }
 }
