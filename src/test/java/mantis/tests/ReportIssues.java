@@ -14,25 +14,20 @@ public class ReportIssues extends BaseTest {
 
         mantisSite.getMainPage().goToReportIssuesPage();
 
-        mantisSite.getReportIssuesPage().createIssues(); //Создание Issue
-
-        String idSubmittedIssue = mantisSite.getReportIssuesPage().getIssueId(); //Получение Id Issue при создании
+        String idCreatedIssue = mantisSite.getReportIssuesPage().createIssues(); //Создание Issue
 
         mantisSite.getMainPage().goToViewIssuesPage(); // Переход на страницу просмотра Issue
 
-        String summary = mantisSite.getViewIssuesPage().assertSummary(); //Получаем summary на странице ViewIssue
-        String id = mantisSite.getViewIssuesPage().viewIssueBugId(); // Получаем ID Issue на странице ViewIssue
-
         SoftAssertions softAssert = new SoftAssertions();
 
-        softAssert.assertThat(summary).contains("test"); //Создание проверка по summary
-        softAssert.assertThat(idSubmittedIssue).contains(id); //Создание проверка по Id
+        softAssert.assertThat(mantisSite.getViewIssuesPage().assertSummary()).contains("test"); //Создание проверка по summary
+        softAssert.assertThat(mantisSite.getViewIssuesPage().viewIssueBugId()).contains(idCreatedIssue); //Создание проверка по id
         softAssert.assertAll();
 
         mantisSite.getViewIssuesPage().deleteIssue(); // Удаление Issue
 
-        softAssert.assertThat(summary).doesNotMatch("test"); //Удаление проверка по summary
-        softAssert.assertThat(idSubmittedIssue).doesNotMatch(id); //Удаление проверка по Id
-        softAssert.assertAll(); //При добавлении assertAll проверки после удаления Issue валятся. В чем может быть дело? Не правильно составлен сам softAssert? Или составлен верно, но я не верно им пользуюсь?
+        softAssert.assertThat(mantisSite.getViewIssuesPage().assertSummary()).doesNotMatch("test"); //Удаление проверка по summary
+        softAssert.assertThat(mantisSite.getViewIssuesPage().viewIssueBugId()).doesNotMatch(idCreatedIssue); //Удаление проверка по id
+        softAssert.assertAll();
     }
 }

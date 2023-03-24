@@ -33,14 +33,12 @@ public class ViewIssuesPage {
 
     public String assertSummary() {
         return summaryAssert.getText();
-
     }
 
     public void deleteIssue() {
         issueId.click();
         deleteIssueButton.click();
         confirmDeleteIssueButton.click();
-
     }
 
     public String viewIssueBugId() {

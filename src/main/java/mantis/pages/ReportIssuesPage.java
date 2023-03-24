@@ -33,14 +33,11 @@ public class ReportIssuesPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void createIssues() {
+    public String createIssues() {
         summaryArea.sendKeys("test");
         descriptionArea.sendKeys("test");
         submitIssueButton.click();
         viewSubmittedIssuesButton.click();
-    }
-
-    public String getIssueId() {
         return issueId.getText();
     }
 
